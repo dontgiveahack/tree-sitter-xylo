@@ -1,0 +1,32 @@
+{
+  "name": "tree-sitter-xylo",
+  "version": "0.1.0",
+  "description": "Tree-sitter grammar and Neovim support for the Xylo programming language",
+  "keywords": [
+    "tree-sitter",
+    "xylo",
+    "neovim",
+    "parser"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dontgiveahack/tree-sitter-xylo.git"
+  },
+  "homepage": "https://github.com/dontgiveahack/tree-sitter-xylo",
+  "bugs": {
+    "url": "https://github.com/dontgiveahack/tree-sitter-xylo/issues"
+  },
+  "files": [
+    "grammar.js",
+    "src",
+    "queries"
+  ],
+  "devDependencies": {
+    "tree-sitter-cli": "^0.26.0"
+  },
+  "scripts": {
+    "generate": "tree-sitter generate",
+    "test": "tree-sitter test"
+  }
+}

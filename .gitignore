@@ -1,0 +1,9 @@
+parser/
+*.so
+*.dylib
+*.dll
+*.o
+node_modules/
+package-lock.json
+output.c
+.DS_Store

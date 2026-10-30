@@ -1,0 +1,13 @@
+(block) @fold
+(function_body) @fold
+(struct_body) @fold
+(union_body) @fold
+(enum_body) @fold
+(initializer_list) @fold
+(anonymous_initializer) @fold
+(array_initializer) @fold
+(match_expression) @fold
+(comptime_pre) @fold
+(comptime_code) @fold
+(comptime_if) @fold
+(comment) @fold

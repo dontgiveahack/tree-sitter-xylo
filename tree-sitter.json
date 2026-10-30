@@ -1,0 +1,23 @@
+{
+  "grammars": [
+    {
+      "name": "xylo",
+      "camelcase": "Xylo",
+      "scope": "source.xylo",
+      "path": ".",
+      "file-types": [
+        "x"
+      ],
+      "highlights": "queries/xylo/highlights.scm",
+      "locals": "queries/xylo/locals.scm",
+      "folds": "queries/xylo/folds.scm",
+      "indents": "queries/xylo/indents.scm",
+      "tags": "queries/xylo/tags.scm"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Tree-sitter grammar and Neovim support for the Xylo programming language"
+  }
+}

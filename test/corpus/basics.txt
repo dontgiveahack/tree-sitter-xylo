@@ -1,0 +1,268 @@
+==================
+Module, import and function
+==================
+
+main: @mod;
+
+@use fmt.printf;
+
+len: fn(p: Point) i32 = return p.x + p.y;
+
+---
+
+(source_file
+  (module_declaration
+    (identifier
+      (lower_identifier)))
+  (use_declaration
+    (use_path
+      (identifier
+        (lower_identifier))
+      (identifier
+        (lower_identifier))))
+  (function_declaration
+    (identifier
+      (lower_identifier))
+    (function_type
+      (parameter
+        (identifier
+          (lower_identifier))
+        (identifier
+          (type_identifier)))
+      (primitive_type))
+    (function_body
+      (return_statement
+        (binary_expression
+          (member_expression
+            (identifier
+              (lower_identifier))
+            (identifier
+              (lower_identifier)))
+          (member_expression
+            (identifier
+              (lower_identifier))
+            (identifier
+              (lower_identifier))))))))
+
+==================
+Struct, union and match
+==================
+
+main: @mod;
+
+Point: struct = { $x: i32; $y: i32; }
+
+Shape: union = {
+	Circle: struct = { r: f64; }
+	Empty: none;
+}
+
+area: fn(s: Shape) f64 = {
+	match s {
+		.Circle => return 3.0 * s.r * s.r;
+		.Empty => return 0.0;
+	}
+}
+
+---
+
+(source_file
+  (module_declaration
+    (identifier
+      (lower_identifier)))
+  (struct_declaration
+    (identifier
+      (type_identifier))
+    (struct_body
+      (struct_field
+        (identifier
+          (lower_identifier))
+        (primitive_type))
+      (struct_field
+        (identifier
+          (lower_identifier))
+        (primitive_type))))
+  (union_declaration
+    (identifier
+      (type_identifier))
+    (union_body
+      (struct_declaration
+        (identifier
+          (type_identifier))
+        (struct_body
+          (struct_field
+            (identifier
+              (lower_identifier))
+            (primitive_type))))
+      (union_variant
+        (identifier
+          (type_identifier))
+        (primitive_type))))
+  (function_declaration
+    (identifier
+      (lower_identifier))
+    (function_type
+      (parameter
+        (identifier
+          (lower_identifier))
+        (identifier
+          (type_identifier)))
+      (primitive_type))
+    (function_body
+      (block
+        (match_expression
+          (identifier
+            (lower_identifier))
+          (match_arm
+            (variant_pattern
+              (identifier
+                (type_identifier)))
+            (return_statement
+              (binary_expression
+                (binary_expression
+                  (number_literal)
+                  (member_expression
+                    (identifier
+                      (lower_identifier))
+                    (identifier
+                      (lower_identifier))))
+                (member_expression
+                  (identifier
+                    (lower_identifier))
+                  (identifier
+                    (lower_identifier))))))
+          (match_arm
+            (variant_pattern
+              (identifier
+                (type_identifier)))
+            (return_statement
+              (number_literal))))))))
+
+==================
+Comptime and contracts
+==================
+
+main: @mod;
+
+/// @in n > 0
+fact: fn(n: i32) i32 = {
+	#assert(n > 0);
+	return n;
+}
+
+VALUE: i32 = #pre 2 + 3;
+
+---
+
+(source_file
+  (module_declaration
+    (identifier
+      (lower_identifier)))
+  (comment)
+  (function_declaration
+    (identifier
+      (lower_identifier))
+    (function_type
+      (parameter
+        (identifier
+          (lower_identifier))
+        (primitive_type))
+      (primitive_type))
+    (function_body
+      (block
+        (comptime_expression
+          (comptime_assert
+            (arguments
+              (argument
+                (binary_expression
+                  (identifier
+                    (lower_identifier))
+                  (number_literal))))))
+        (return_statement
+          (identifier
+            (lower_identifier))))))
+  (variable_declaration
+    (identifier
+      (type_identifier))
+    (primitive_type)
+    (binary_expression
+      (comptime_expression
+        (comptime_pre
+          (number_literal)))
+      (number_literal))))
+
+==================
+Operators and optionals
+==================
+
+main: @mod;
+
+Vec: struct = {
+	$x: i32;
+	@operator + : fn(a: Vec, b: Vec) Vec = return Vec{x = a.x + b.x};
+}
+
+unwrap: fn(v: i32?) i32 = return v?;
+
+---
+
+(source_file
+  (module_declaration
+    (identifier
+      (lower_identifier)))
+  (struct_declaration
+    (identifier
+      (type_identifier))
+    (struct_body
+      (struct_field
+        (identifier
+          (lower_identifier))
+        (primitive_type))
+      (operator_member
+        (operator_symbol)
+        (function_type
+          (parameter
+            (identifier
+              (lower_identifier))
+            (identifier
+              (type_identifier)))
+          (parameter
+            (identifier
+              (lower_identifier))
+            (identifier
+              (type_identifier)))
+          (identifier
+            (type_identifier)))
+        (function_body
+          (return_statement
+            (struct_initializer
+              (type_identifier)
+              (initializer_list
+                (keyed_initializer
+                  (identifier
+                    (lower_identifier))
+                  (binary_expression
+                    (member_expression
+                      (identifier
+                        (lower_identifier))
+                      (identifier
+                        (lower_identifier)))
+                    (member_expression
+                      (identifier
+                        (lower_identifier))
+                      (identifier
+                        (lower_identifier))))))))))))
+  (function_declaration
+    (identifier
+      (lower_identifier))
+    (function_type
+      (parameter
+        (identifier
+          (lower_identifier))
+        (identifier
+          (lower_unwrap)))
+      (primitive_type))
+    (function_body
+      (return_statement
+        (unwrapped_identifier
+          (lower_unwrap))))))
